@@ -41,6 +41,7 @@ func (f *Floor) updateGridFloor(camXPos, camYPos int) {
 
 // le sol est récupéré depuis un tableau, qui a été lu dans un fichier
 func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
+	f.fullContent
 	// TODO
 }
 

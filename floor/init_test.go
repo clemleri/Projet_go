@@ -4,7 +4,8 @@ import (
 	"testing"
 	"reflect"
 )
-
+// teste pour vérifier si le fichier est bien que le fichier est bien un fichier texte 
+// et donc que notre fonction retourne bien un tableau de tableau d'entier
 func Test_file(t *testing.T) {
 	tab := readFloorFromFile("../floor-files/test/test_line_size")
 	if reflect.TypeOf(tab).Kind() == reflect.Slice {
@@ -26,6 +27,7 @@ func Test_empty_alpha(t *testing.T) {
 	}
 }
 
+// teste pour vérifier si les lignes du fichiers texte ont bien toutes le même nombre de caractères 
 func Test_line_size(t *testing.T) {
 	tab := readFloorFromFile("../floor-files/test/test_line_size")
 	size := len(tab[0])
