@@ -47,7 +47,7 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int){
 	
 	for i:=inter_y[0]; i<inter_y[1]; i++ {
 		for j:=inter_x[0]; j<inter_x[1]; j++ {
-			if i < 0 || i > len(f.fullContent) || j < 0 || j >len(f.fullContent[0]){
+			if i < 0 || i >= len(f.fullContent) || j < 0 || j >= len(f.fullContent[0]){
 				f.content[i] = append(f.content[i],-1)
 			}else {
 				f.content[i] = append(f.content[i],f.fullContent[i][j])
