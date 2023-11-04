@@ -1,8 +1,6 @@
 package floor
 
 import (
-	"fmt"
-
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
 )
 
@@ -46,8 +44,8 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 	inter_x := []int{camXPos - configuration.Global.NumTileX/2, (camXPos + configuration.Global.NumTileX/2) + configuration.Global.NumTileX%2}
 	inter_y := []int{camYPos - configuration.Global.NumTileY/2, (camYPos + configuration.Global.NumTileY/2) + configuration.Global.NumTileY%2}
 
-	fmt.Println("inter_x=", inter_x)
-	fmt.Println("inter_y=", inter_y)
+	//fmt.Println("inter_x=", inter_x)
+	//fmt.Println("inter_y=", inter_y)
 	// Réinitialiser le contenu actuel
 	f.content = make([][]int, (configuration.Global.NumTileY))
 
@@ -70,7 +68,7 @@ func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
 		}
 	}
 	//fmt.Println("fullContent=", f.fullContent)
-	fmt.Println("content=", f.content)
+	//fmt.Println("content=", f.content)
 }
 
 // le sol est récupéré depuis un quadtree, qui a été lu dans un fichier
