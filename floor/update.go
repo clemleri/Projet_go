@@ -43,8 +43,8 @@ func (f *Floor) updateGridFloor(camXPos, camYPos int) {
 
 // le sol est récupéré depuis un tableau, qui a été lu dans un fichier
 func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
-	inter_x := []int{camXPos - configuration.Global.NumTileX/2, (camXPos + configuration.Global.NumTileX/2) + 1}
-	inter_y := []int{camYPos - configuration.Global.NumTileY/2, (camYPos + configuration.Global.NumTileY/2) + 1}
+	inter_x := []int{camXPos - configuration.Global.NumTileX/2, (camXPos + configuration.Global.NumTileX/2) + configuration.Global.NumTileX%2}
+	inter_y := []int{camYPos - configuration.Global.NumTileY/2, (camYPos + configuration.Global.NumTileY/2) + configuration.Global.NumTileY%2}
 
 	fmt.Println("inter_x=", inter_x)
 	fmt.Println("inter_y=", inter_y)
