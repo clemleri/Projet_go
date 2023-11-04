@@ -2,6 +2,7 @@ package floor
 
 import (
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+	
 )
 
 // Update se charge de stocker dans la structure interne (un tableau)
@@ -40,19 +41,19 @@ func (f *Floor) updateGridFloor(camXPos, camYPos int) {
 }
 
 // le sol est récupéré depuis un tableau, qui a été lu dans un fichier
-func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
-	inter_x := []int{camXPos - Global.NumTileX/2,camXPos+- Global.NumTileX/2}
-	inter_y := []int{camYPos - Global.NumTileY/2,camYPos+- Global.NumTileY/2}
-
-	for i:=0; i<len(f.fullContent); i++ {
-		for j:=0; j<len(f.fullContent[i]); j++ {
-			if inter_x[0] + j < 0 {
-				content
+func (f *Floor) updateFromFileFloor(camXPos, camYPos int){
+	inter_x := []int{camXPos - configuration.Global.NumTileX/2,camXPos + configuration.Global.NumTileX/2}
+	inter_y := []int{camYPos - configuration.Global.NumTileY/2,camYPos + configuration.Global.NumTileY/2}
+	
+	for i:=inter_y[0]; i<inter_y[1]; i++ {
+		for j:=inter_x[0]; j<inter_x[1]; j++ {
+			if i < 0 || i > len(f.fullContent) || j < 0 || j >len(f.fullContent[0]){
+				f.content[i] = append(f.content[i],-1)
+			}else {
+				f.content[i] = append(f.content[i],f.fullContent[i][j])
 			}
-			
 		}
 	}
-	// TODO
 }
 
 // le sol est récupéré depuis un quadtree, qui a été lu dans un fichier

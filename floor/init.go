@@ -6,7 +6,6 @@ import (
 	"bufio"
 	"os"
 	"strconv"
-	"fmt"
 )
 
 // Init initialise les structures de données internes de f.
@@ -52,6 +51,5 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 		}
         floorContent = append(floorContent,tab)
     }
-	fmt.Println(floorContent)
 	return floorContent
 }
