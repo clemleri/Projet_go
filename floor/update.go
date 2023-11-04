@@ -2,7 +2,6 @@ package floor
 
 import (
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
-	
 )
 
 // Update se charge de stocker dans la structure interne (un tableau)
@@ -41,16 +40,43 @@ func (f *Floor) updateGridFloor(camXPos, camYPos int) {
 }
 
 // le sol est récupéré depuis un tableau, qui a été lu dans un fichier
-func (f *Floor) updateFromFileFloor(camXPos, camYPos int){
-	inter_x := []int{camXPos - configuration.Global.NumTileX/2,camXPos + configuration.Global.NumTileX/2}
-	inter_y := []int{camYPos - configuration.Global.NumTileY/2,camYPos + configuration.Global.NumTileY/2}
-	
-	for i:=inter_y[0]; i<inter_y[1]; i++ {
-		for j:=inter_x[0]; j<inter_x[1]; j++ {
-			if i < 0 || i >= len(f.fullContent) || j < 0 || j >= len(f.fullContent[0]){
-				f.content[i] = append(f.content[i],-1)
-			}else {
-				f.content[i] = append(f.content[i],f.fullContent[i][j])
+func (f *Floor) updateFromFileFloor(camXPos, camYPos int) {
+	// Calculez les coordonnées de la zone visible à l'écran.
+	screenLeft := camXPos - configuration.Global.NumTileX/2
+	screenRight := camXPos + configuration.Global.NumTileX/2
+	screenTop := camYPos - configuration.Global.NumTileY/2
+	screenBottom := camYPos + configuration.Global.NumTileY/2
+
+	// Assurez-vous que les coordonnées de la zone visible restent dans les limites du terrain.
+	// Vous pouvez définir des bornes minimales et maximales pour éviter de sortir des limites du terrain.
+	if screenLeft < 0 {
+		screenLeft = 0
+	}
+	if screenRight >= len(f.fullContent[0]) {
+		screenRight = len(f.fullContent[0]) - 1
+	}
+	if screenTop < 0 {
+		screenTop = 0
+	}
+	if screenBottom >= len(f.fullContent) {
+		screenBottom = len(f.fullContent) - 1
+	}
+
+	// Remplissez le tableau content avec les valeurs du terrain chargé depuis le fichier.
+	for i := 0; i < len(f.content); i++ {
+		f.content[i] = make([]int, 0, len(f.content[0]))
+		for j := screenLeft; j <= screenRight; j++ {
+			if i >= screenTop && i <= screenBottom {
+				if j >= 0 && j < len(f.fullContent[0]) {
+					// Copiez la valeur du terrain depuis fullContent vers content.
+					f.content[i] = append(f.content[i], f.fullContent[i][j])
+				} else {
+					// Coordonnées en dehors des limites du terrain. Utilisez -1 pour indiquer l'absence de terrain.
+					f.content[i] = append(f.content[i], -1)
+				}
+			} else {
+				// Coordonnées en dehors des limites du terrain. Utilisez -1 pour indiquer l'absence de terrain.
+				f.content[i] = append(f.content[i], -1)
 			}
 		}
 	}
